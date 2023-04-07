@@ -46,6 +46,8 @@ python main.py -b
 python main.py -i
 ```
 
+3. Change stoptime in main.py and the program would stop as you want.
+
 Now, the code will run as a simulation.   
 Type **`s`** in respective branches for snapshot.
 
