@@ -31,6 +31,9 @@ class Inspector(BaseClass):
         self.connect_to_branches()
 
         self._log("INSPECTOR LOG\n", in_file=True, stdio=False, file_mode="w")
+        
+        self.stop = False
+
 
     def connect_to_branches(self):
 
@@ -69,7 +72,7 @@ class Inspector(BaseClass):
         sign_after = f'{c_sign if s_place == "after" else ""}'
         merged_unit_sign_after = c_unit + ' ' + sign_after
 
-        while True:
+        while not self.stop:
             pickled_data = self.branches[bid]["in_conn"].recv(4096)
             message = pickle.loads(pickled_data)
 

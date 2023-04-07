@@ -1,9 +1,20 @@
 import argparse
 import shutil
+import time
+import threading
 
 from bank import Bank
 from inspector import Inspector
 from commons import Constants
+
+def stop_after_timeout(timeout, bank, inspector):
+    time.sleep(timeout)
+    print("Time's up! Stopping the program.")
+    if bank is not None:
+        bank.stop = True
+    if inspector is not None:
+        inspector.stop = True
+
 
 if __name__ == '__main__':
 
@@ -31,11 +42,17 @@ if __name__ == '__main__':
 
     if args.bank and args.inspector:
         raise "You must only use one option."
-    elif args.bank:
-        branch = Bank()
-        branch.run()
-    elif args.inspector:
-        inspector = Inspector()
-        inspector.run()
     else:
-        raise "Use one of the options (-b or -i)"
+        timeout = 5 * 60
+        if args.bank:
+            branch = Bank()
+            timer = threading.Thread(target=stop_after_timeout, args=(timeout, branch, None))
+            timer.start()
+            branch.run()
+        elif args.inspector:
+            inspector = Inspector()
+            timer = threading.Thread(target=stop_after_timeout, args=(timeout, None, inspector))
+            timer.start()
+            inspector.run()
+        else:
+            raise "Use one of the options (-b or -i)"
