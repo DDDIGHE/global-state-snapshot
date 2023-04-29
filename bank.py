@@ -104,6 +104,9 @@ class Bank(BaseClass):
         self._init_inspector()
 
         self._log(f"BRANCH {self.id} LOG\n", in_file=True, stdio=False, file_mode="w")
+        
+        self.stop = False
+
 
     def _init_other_branches(self):
         """
@@ -293,7 +296,7 @@ class Bank(BaseClass):
         p_trnsction = self.bank_confs['transaction']['p']
         min_amount = self.bank_confs['transaction']['min']
         max_amount = self.bank_confs['transaction']['max']
-        while True:
+        while not self.stop:
             if max_n_send == 0:
                 self._log(
                     f"Reached to the maximum number of sends "
@@ -347,7 +350,7 @@ class Bank(BaseClass):
         max_delay = self.brnch_confs[self.id]['delay']['max']
         time_step = self.bank_confs['time_step']
 
-        while True:
+        while not self.stop:
             if not self.recv_queue[sender_index].empty():
                 message = self.recv_queue[sender_index].get()
                 # Add an intentional delay to simulate connection latency.

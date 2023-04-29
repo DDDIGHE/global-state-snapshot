@@ -13,10 +13,10 @@ bank:
     # probability to decide whether to transfer money to a specific branch
     p: 0.3
 
-  time_step: 0.5 # transactions are performed every `time_step` seconds.
+  time_step: 0.4 # transactions are performed every `time_step` seconds.
 
   # maximum number of transactions between two branches (only send messages)
-  max_n_send: 1000
+  max_n_send: 10000
 
   initial_balance: 1000000 # initial capital of each branch
 
@@ -48,6 +48,7 @@ branches:
     delay:
       min: 1
       max: 10
+
 
 inspector:
   address: 'localhost'

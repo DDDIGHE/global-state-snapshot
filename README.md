@@ -8,6 +8,9 @@ A few other options are also available in the same config_file.
 
 **Note:** A branch can initiate a snapshot at any time by pressing **`s`** in its terminal.
 
+## Evaluation
+The program will automatically give result after it's done.
+
 ## Platform
 Although thorough testing of the project was done on Ubuntu and Arch Linux, it should run fine on other operating systems as well.
 

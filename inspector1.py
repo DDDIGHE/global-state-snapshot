@@ -123,8 +123,9 @@ class Inspector(BaseClass):
                     f'\tRequest Time:'
                     f'{message["request_time"].strftime(time_format)}'
                     f'\tPreparation Time:'
-                    f'{message["preparation_time"].strftime(time_format)}'
-                    f'\tSnapshot duration: {snapshot_latency:.2f} seconds')
+                    f'{message["preparation_time"].strftime(time_format)}')
+                    #f'\tSnapshot duration:'
+                    #f'{message["snapshot_latency"].strftime(time_format)}')
                 storage_size = sys.getsizeof(log_message)
                 self.total_storage_size += storage_size
 
@@ -143,6 +144,8 @@ class Inspector(BaseClass):
                         # f'{c_unit:<9} '
                         # f'{sign_after}')
                         f'{merged_unit_sign_after:<6}')
+                    storage_size = sys.getsizeof(log_message)
+                    self.total_storage_size += storage_size
                     total_balance += snapshot["balance"] + snapshot["in_channels"]
 
                 log_message += (
@@ -175,6 +178,8 @@ class Inspector(BaseClass):
                     f' - receiver:{crspnd_msg["receiver_id"]:>2}'
                     f' - receive_time: '
                     f'{crspnd_msg["receive_time"].strftime(time_format)}')
+                storage_size = sys.getsizeof(log_message)
+                self.total_storage_size += storage_size
                 self._log(log_message, in_file=True)
                 crspnd_msg = None
 
